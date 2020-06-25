@@ -14,3 +14,4 @@
 프로그래머스 / 체육복 / 20.05.06 / [문제링크](https://programmers.co.kr/learn/courses/30/lessons/42862) / [커밋링크](https://github.com/sihyung92/java-algorithm/commit/29569be5476daccdb4147b2f5a18e234f30e0f7b)
 
 백준 / 백설공주와 난쟁이 / 20.06.24
+백준 / 1로 만들기 / 20.06.25
