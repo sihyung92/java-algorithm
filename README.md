@@ -12,3 +12,5 @@
 프로그래머스 / 타겟넘버 / 20.05.06 / [문제링크](https://programmers.co.kr/learn/courses/30/lessons/43165) / [커밋링크](https://github.com/sihyung92/java-algorithm/commit/b448334cdd87d3873e49d0be274fc22e2919e5c5)
 
 프로그래머스 / 체육복 / 20.05.06 / [문제링크](https://programmers.co.kr/learn/courses/30/lessons/42862) / [커밋링크](https://github.com/sihyung92/java-algorithm/commit/29569be5476daccdb4147b2f5a18e234f30e0f7b)
+
+백준 / 백설공주와 난쟁이 / 20.06.24
