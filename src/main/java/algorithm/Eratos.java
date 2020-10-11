@@ -1,5 +1,7 @@
 package algorithm;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -8,10 +10,13 @@ import java.util.stream.IntStream;
 public class Eratos {
     public static void main(String[] args) {
         Scanner consoleScanner = new Scanner(System.in);
+        System.out.println("몇 까지의 소수?");
         int input = consoleScanner.nextInt();
 
+        LocalDateTime before = LocalDateTime.now();
         Eratos primeNumberPrinter = new Eratos();
         primeNumberPrinter.printPrimeNumberLessThan(input);
+        System.out.println("계산 + 출력에 걸린 시간은 : " + ChronoUnit.MILLIS.between(before, LocalDateTime.now()) + "millisecond");
     }
 
     private void printPrimeNumberLessThan(int number) {
@@ -57,23 +62,20 @@ public class Eratos {
             primeArray[i] = temp.get(i);
         }
 
-        return primeArray;
+        //return primeArray;
 
         //혹은 Java8 스트림을 사용하면 다음과 같이 코드 한 줄로 primeList.get(i)가 true인 값들을 int 배열로 반환할 수 있습니다!
-        //return IntStream.rangeClosed(0, number).filter(primeList::get).toArray();
+        return IntStream.rangeClosed(0, number).filter(primeList::get).toArray();
     }
 
     private void print(int[] numbers) {
         for (int i = 0; i < numbers.length; i++) {
             print(numbers[i]);
-            if (i != 0 && i % 10 == 0) {
-                System.out.println();
-            }
         }
     }
 
     private void print(int number) {
-        System.out.printf("%d ", number);
+        System.out.printf("%d %n", number);
     }
 }
 
