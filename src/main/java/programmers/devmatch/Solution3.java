@@ -5,28 +5,79 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Solution3 {
+
+    class Vote {
+        int count = 1;
+        String name;
+
+        public Vote(String name) {
+            this.name = name;
+        }
+
+        public int getCount() {
+            return count;
+        }
+
+
+        public String getName() {
+            return name;
+        }
+
+        public void vote(){
+            count++;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Vote vote = (Vote) o;
+            return Objects.equals(name, vote.name);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(count, name);
+        }
+
+    }
+
     public String solution(String[] votes, int k) {
-        Map<String, Integer> voteMap = new HashMap<>();
-        for (String vote : votes) {
-            if (voteMap.containsKey(vote)) {
-                voteMap.put(vote, voteMap.get(vote) + 1);
+        Map<String, Vote> voteMap = new HashMap<>();
+        for (String name : votes) {
+            if (voteMap.containsKey(name)) {
+                voteMap.get(name).vote();
             } else {
-                voteMap.put(vote, 1);
+                voteMap.put(name, new Vote(name));
             }
         }
 
-        int rankerSum = voteMap.values().stream().sorted(Comparator.reverseOrder()).limit(k).mapToInt(Integer::intValue).sum();
-        List<String> sortedList = voteMap.keySet().stream().collect(Collectors.toList());
+        int rankerSum = voteMap
+                .values().stream()
+                .map(v -> v.count)
+                .sorted(Comparator.reverseOrder())
+                .mapToInt(Integer::intValue)
+                .limit(k)
+                .sum();
+
+        Comparator<Vote> comparator = Comparator.comparing(Vote::getName).reversed();
+
+        List<Vote> sortedList = voteMap.values().stream().
+                sorted(Comparator.comparing(Vote::getCount).thenComparing(comparator)).
+                collect(Collectors.toList());
 
         int sum = 0;
-        for (int i = sortedList.size() - 1; i >= 0 ; i--) {
-            String[] s = sortedList.get(i).split(" ");
-            int i1 = Integer.parseInt(s[0]);
-            sum += i1;
-            if (sum >= rankerSum) {
-                return s[1];
+
+        for (int i = 0; i < sortedList.size(); i++) {
+            sum += sortedList.get(i).getCount();
+            if (rankerSum <= sum && i != 0) {
+                return sortedList.get(i - 1).getName();
+            } else if( rankerSum <= sum && i == 0 ){
+                return sortedList.get(0).getName();
             }
         }
-        return sortedList.get(0).split(" ")[1];
+
+        return sortedList.get(sortedList.size()-1).getName();
+
     }
 }
