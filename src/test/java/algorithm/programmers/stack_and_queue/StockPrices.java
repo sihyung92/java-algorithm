@@ -3,6 +3,7 @@ package algorithm.programmers.stack_and_queue;
 import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
+import java.util.Stack;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -13,34 +14,21 @@ public class StockPrices {
     }
 
     public int[] solution(int[] prices) {
-        LinkedList<Stock> stocks = new LinkedList<Stock>();
-        for (int price : prices) {
-            for (Stock stock : stocks) {
-                stock.isNotDown(price);
-            }
-            stocks.add(new Stock(price));
-        }
-        int[] answer = stocks.stream().map(s -> s.num).mapToInt(Integer::intValue).toArray();
-        return answer;
-    }
+        Stack<Integer> beginIndexes = new Stack<>();
+        int[] terms = new int[prices.length];
 
-    class Stock {
-        int num = 0;
-        int price = 0;
-        boolean check = false;
-
-        Stock(int price) {
-            this.price = price;
-        }
-
-        public void isNotDown(int price) {
-            if (check) {
-                return;
+        beginIndexes.push(0);
+        for (int i = 1; i < prices.length; i++) {
+            while (!beginIndexes.empty() && prices[i] < prices[beginIndexes.peek()]) {
+                int beginIndex = beginIndexes.pop();
+                terms[beginIndex] = i - beginIndex;
             }
-            if (this.price > price) {
-                check = true;
-            }
-            num++;
+            beginIndexes.push(i);
         }
+        while (!beginIndexes.empty()) {
+            int beginIdx = beginIndexes.pop();
+            terms[beginIdx] = prices.length - beginIdx - 1;
+        }
+        return terms;
     }
 }
