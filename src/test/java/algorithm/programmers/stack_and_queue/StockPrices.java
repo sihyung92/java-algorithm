@@ -1,12 +1,11 @@
 package algorithm.programmers.stack_and_queue;
 
 import org.junit.jupiter.api.Test;
-
-import java.util.LinkedList;
 import java.util.Stack;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+//https://programmers.co.kr/learn/courses/30/lessons/42584
 public class StockPrices {
     @Test
     void test() {
